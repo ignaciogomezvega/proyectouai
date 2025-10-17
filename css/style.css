@@ -92,32 +92,22 @@ article.producto img {
 }
 
 /* Contacto */
-#contacto form {
+#contactos form {
     max-width: 500px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
 }
 
-#contacto input,
-#contacto textarea,
-#contacto button {
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+/* 🔹 Pseudoclases de validación */
+#contactos input:invalid,
+#contactos textarea:invalid {
+    border: 2px solid red;
 }
 
-#contacto button {
-    background-color: #B57EDC;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#contacto button:hover {
-    background-color: #9A63C7;
+#contactos input:valid,
+#contactos textarea:valid {
+    border: 2px solid green;
 }
 
 /* Footer */

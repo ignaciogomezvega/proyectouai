@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tejidos Vivy</title>
-    <link rel="stylesheet" href="css/style.css"> <!--Conecto con mi carpeta de CSS-->
+    <link rel="stylesheet" href="css/style.css">
 </head> 
 <body>
     <header>
@@ -21,6 +21,7 @@
             </ul>
         </nav>
     </header>
+
     <main>
         <section id="catalogo">
             <h2>Catalogo de Productos</h2>
@@ -43,13 +44,15 @@
         </section>
 
         <section id="contactos">
-            <h2>contacto</h2>
-            <p>Si queres hacer un pedido a traves de alguna consulta, completá este formulario</p>
-            <form action="#" method="post">
+            <h2>Contacto</h2>
+            <p>Si queres hacer un pedido a través de alguna consulta, completá este formulario:</p>
+            <form id="form-contacto" action="#" method="post">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required><br><br>
+
                 <label for="email">Correo electrónico:</label>
                 <input type="text" id="email" name="email" required><br><br>
+
                 <label for="mensaje">Mensaje:</label>
                 <textarea name="mensaje" id="mensaje" rows="5" required></textarea><br><br>
 
@@ -57,5 +60,12 @@
             </form>
         </section>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Tejidos Vivy</p>
+    </footer>
+
+    <!-- 🔹 JavaScript -->
+    <script src="js/script.js"></script>
 </body>
 </html>
