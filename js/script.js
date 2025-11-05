@@ -1,4 +1,5 @@
-// ---------------------- CARRITO (FUNCIONES GLOBALES) ----------------------
+// ==== CARRITO ====
+
 function obtenerCarrito() {
     return JSON.parse(localStorage.getItem('carrito')) || [];
 }
@@ -11,9 +12,7 @@ function agregarProducto(nombre, precio) {
     const carrito = obtenerCarrito();
     carrito.push({ nombre, precio });
     guardarCarrito(carrito);
-    alert("SE AGREGO PRODUCTO A LA LISTA DE COMPRA. Diríjase a CONTACTO para terminar con el pedido.");
-    // Si la página tiene el contenedor del carrito visible, actualizamos la vista
-    if (document.getElementById('lista-carrito')) mostrarCarrito();
+    alert("✅ SE AGREGÓ EL PRODUCTO A LA LISTA DE COMPRA.\nDiríjase a CONTACTO para terminar con el pedido.");
 }
 
 function eliminarProducto(indice) {
@@ -22,9 +21,6 @@ function eliminarProducto(indice) {
     guardarCarrito(carrito);
     mostrarCarrito();
 }
-
-// Aseguramos que la función sea accesible si el HTML usa onclick inline
-window.eliminarProducto = eliminarProducto;
 
 function mostrarCarrito() {
     const contenedor = document.getElementById('lista-carrito');
@@ -41,124 +37,77 @@ function mostrarCarrito() {
     const ul = document.createElement('ul');
     carrito.forEach((p, i) => {
         const li = document.createElement('li');
-        // Escapamos texto mínimamente para evitar inyecciones si el nombre viene de una fuente desconocida
-        const nombreSafe = String(p.nombre).replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        li.innerHTML = `${nombreSafe} - $${Number(p.precio).toLocaleString()} <button class="btn-eliminar" data-indice="${i}">❌</button>`;
+        li.innerHTML = `${p.nombre} - $${p.precio.toLocaleString()} 
+            <button onclick="eliminarProducto(${i})">❌</button>`;
         ul.appendChild(li);
     });
     contenedor.appendChild(ul);
 
-    const total = carrito.reduce((acc, p) => acc + Number(p.precio), 0);
+    const total = carrito.reduce((acc, p) => acc + p.precio, 0);
     const totalP = document.createElement('p');
     totalP.innerHTML = `<strong>Total: $${total.toLocaleString()}</strong>`;
     contenedor.appendChild(totalP);
-
-    // Delegación para botones eliminar (en lugar de onclick inline)
-    ul.addEventListener('click', (e) => {
-        if (e.target && e.target.matches('button.btn-eliminar')) {
-            const idx = Number(e.target.getAttribute('data-indice'));
-            eliminarProducto(idx);
-        }
-    }, { once: false });
 }
 
-// ---------------------- DOMContentLoaded: FILTRO + BOTONES COMPRA + FORM ----------------------
-document.addEventListener("DOMContentLoaded", () => {
-    // --- filtro de categorías ---
-    const botonesCategorias = document.querySelectorAll(".categorias button");
-    const productos = document.querySelectorAll(".producto");
+// ==== FILTRO DE PRODUCTOS ====
 
-    console.log("script.js cargado. botonesCategorias:", botonesCategorias.length, "productos:", productos.length);
+function filtrarProductos() {
+    const input = document.getElementById('filtro-productos');
+    if (!input) return;
+    const filtro = input.value.toLowerCase();
 
-    if (botonesCategorias.length > 0 && productos.length > 0) {
-        botonesCategorias.forEach(boton => {
-            boton.addEventListener("click", () => {
-                // Quita la clase activa de todos
-                botonesCategorias.forEach(b => b.classList.remove("activo"));
-                boton.classList.add("activo");
-
-                const categoriaSeleccionada = boton.getAttribute("data-categoria");
-                console.log("Filtrando por categoría:", categoriaSeleccionada);
-
-                productos.forEach(producto => {
-                    const categoriaProducto = producto.getAttribute("data-categoria") || "";
-                    if (categoriaSeleccionada === "todos" || categoriaProducto === categoriaSeleccionada) {
-                        producto.style.display = ""; // deja que el CSS determine el display (normalmente block/flex)
-                    } else {
-                        producto.style.display = "none";
-                    }
-                });
-            });
-        });
-    } else {
-        console.log("No se detectaron botones de categoría o productos (no se aplicará filtro).");
-    }
-
-    // --- botones de compra ---
-    const botonesCompra = document.querySelectorAll('.boton-comprar');
-    if (botonesCompra.length === 0) console.log("No se detectaron botones de compra (.boton-comprar).");
-
-    botonesCompra.forEach(boton => {
-        boton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const productoElem = e.target.closest('.producto');
-            if (!productoElem) {
-                console.warn("No se pudo encontrar el elemento .producto padre al hacer click en comprar.");
-                return;
-            }
-
-            const nombreElem = productoElem.querySelector('h3');
-            const nombre = nombreElem ? nombreElem.textContent.trim() : 'Producto';
-
-            // Buscamos el párrafo que contenga "Precio" o el segundo p por defecto
-            let precioTexto = '';
-            const todosPs = productoElem.querySelectorAll('p');
-            // buscar p que contenga "Precio" o que tenga un número
-            for (let p of todosPs) {
-                if (/precio/i.test(p.textContent) || /\$\d+/.test(p.textContent) || /\d{3,}/.test(p.textContent)) {
-                    precioTexto = p.textContent;
-                }
-            }
-            // si no encontramos nada, intentamos tomar el segundo <p>
-            if (!precioTexto && todosPs[1]) precioTexto = todosPs[1].textContent;
-
-            // Extraer número del texto (acepta puntos y comas)
-            const precioNumero = parseFloat(
-                (precioTexto || '')
-                    .replace(/\./g, '')    // quitar separadores de miles
-                    .replace(/,/g, '.')    // comas decimales => punto
-                    .replace(/[^\d.]/g, '') // quitar todo lo que no sea dígito o punto
-            );
-
-            const precio = isNaN(precioNumero) ? 0 : precioNumero;
-
-            agregarProducto(nombre, precio);
-        });
+    const productos = document.querySelectorAll('.producto');
+    productos.forEach(producto => {
+        const nombre = producto.querySelector('h3').textContent.toLowerCase();
+        producto.style.display = nombre.includes(filtro) ? 'block' : 'none';
     });
+}
 
-    // --- mostrar carrito si estamos en la página de contacto ---
+// ==== EVENTOS ====
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Mostrar carrito si existe la sección
     if (document.getElementById('lista-carrito')) {
         mostrarCarrito();
     }
 
-    // --- envío del formulario en contacto ---
+    // Delegar evento de "comprar"
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('boton-comprar')) {
+            e.preventDefault();
+            const producto = e.target.closest('.producto');
+            const nombre = producto.querySelector('h3').textContent;
+            const precioTexto = producto.querySelector('p:nth-of-type(2)').textContent;
+            const precio = parseFloat(precioTexto.replace(/[^0-9]/g, ''));
+            agregarProducto(nombre, precio);
+        }
+    });
+
+    // Evento para el filtro
+    const filtroInput = document.getElementById('filtro-productos');
+    if (filtroInput) {
+        filtroInput.addEventListener('input', filtrarProductos);
+    }
+
+    // Evento de formulario (CONTACTO)
     const form = document.getElementById('form-contacto');
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const nombreInput = document.getElementById('nombre');
+            const nombre = document.getElementById('nombre');
             const carrito = obtenerCarrito();
 
             if (carrito.length === 0) {
-                alert("No has agregado productos a tu lista de compra.");
+                alert("❌ No has agregado productos a tu lista de compra.");
                 return;
             }
 
-            const listaProductos = carrito.map(p => `- ${p.nombre} ($${Number(p.precio).toLocaleString()})`).join('\n');
-            const total = carrito.reduce((acc, p) => acc + Number(p.precio), 0);
+            const listaProductos = carrito.map(p => `- ${p.nombre} ($${p.precio.toLocaleString()})`).join('\n');
+            const total = carrito.reduce((acc, p) => acc + p.precio, 0);
 
-            alert(`¡Gracias ${nombreInput.value}! Tu mensaje fue enviado correctamente.\n\nProductos seleccionados:\n${listaProductos}\n\nCOSTO TOTAL: $${total.toLocaleString()}`);
+            alert(`¡Gracias ${nombre.value}! Tu mensaje fue enviado correctamente.\n\n🛒 Productos seleccionados:\n${listaProductos}\n\n💰 COSTO TOTAL: $${total.toLocaleString()}`);
 
             form.reset();
             localStorage.removeItem('carrito');
