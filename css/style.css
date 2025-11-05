@@ -1,188 +1,144 @@
-/* === ESTILOS GENERALES === */
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, sans-serif;
+}
+
+/* Body general */
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #fffdf9;
-  color: #333;
-  text-align: center;
+    background-color: #FFFFFF;
+    color: #000000;
+    line-height: 1.6;
 }
 
+/* Header */
 header {
-  background-color: #f9f3ee;
-  padding: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: #F5F5F5;
 }
 
-header img {
-  border-radius: 10px;
-}
-
-h1 {
-  color: #7a4a28;
-}
-
+/* Navegación */
 nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    background-color: #B57EDC;
+}
+
+nav ul li {
+    margin: 0 15px;
 }
 
 nav ul li a {
-  text-decoration: none;
-  color: #7a4a28;
-  font-weight: bold;
-  transition: color 0.3s ease;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
 }
 
 nav ul li a:hover {
-  color: #b87333;
+    background-color: #9A63C7;
+    border-radius: 5px;
 }
 
-main {
-  padding: 20px;
+/* Secciones */
+section {
+    padding: 30px 50px;
 }
 
-/* === PRODUCTOS === */
+/* Catálogo y productos */
 .contenedor-productos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-  margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
-.producto {
-  background-color: #fffaf6;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 15px;
-  width: 220px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+article.producto {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.producto:hover {
-  transform: scale(1.03);
+article.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.producto img {
-  width: 100%;
-  border-radius: 10px;
+article.producto img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
+/* Botón Comprar */
 .boton-comprar {
-  background-color: #b87333;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #B57EDC;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 .boton-comprar:hover {
-  background-color: #8c5326;
+    background-color: #9A63C7;
 }
 
-/* === FILTROS === */
-.filtros {
-  margin-bottom: 20px;
+/* Menú de categorías (filtro) */
+.categorias {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
-.filtros button {
-  background-color: #e8dccb;
-  border: none;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 8px;
-  cursor: pointer;
+.categorias button {
+    background-color: #B57EDC;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
-.filtros .filtro-activo {
-  background-color: #b87333;
-  color: white;
+.categorias button:hover,
+.categorias button.activo {
+    background-color: #9A63C7;
 }
 
-/* === CARRITO === */
-#lista-carrito {
-  margin-top: 20px;
+/* Contacto */
+#contactos form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
-.carrito-item {
-  background-color: #fffaf6;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 5px auto;
-  width: 80%;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Validación */
+#contactos input:invalid,
+#contactos textarea:invalid {
+    border: 2px solid red;
 }
 
-.carrito-item button {
-  background-color: #ff6961;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
+#contactos input:valid,
+#contactos textarea:valid {
+    border: 2px solid green;
 }
 
-#total {
-  font-size: 1.3em;
-  font-weight: bold;
-  margin: 20px 0;
-  color: #7a4a28;
-}
-
-/* === FORMULARIOS === */
-form {
-  background-color: #fffaf6;
-  padding: 20px;
-  margin: 20px auto;
-  width: 80%;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-  max-width: 500px;
-}
-
-form label {
-  font-weight: bold;
-  display: block;
-  margin-top: 10px;
-}
-
-form input, form textarea {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-form button {
-  background-color: #b87333;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  margin-top: 15px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-form button:hover {
-  background-color: #8c5326;
-}
-
-/* === FOOTER === */
+/* Footer */
 footer {
-  background-color: #f9f3ee;
-  padding: 10px;
-  color: #7a4a28;
-  margin-top: 40px;
+    text-align: center;
+    padding: 15px;
+    background-color: #F5F5F5;
+    margin-top: 30px;
 }

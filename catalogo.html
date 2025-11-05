@@ -1,66 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tejidos Vivy - Catálogo</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Tejidos Vivy</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <img src="img/LOGOPAGINA.jpg" alt="Logo de Tejidos Vivy" width="150">
-    <h1>Catálogo de Productos</h1>
-    <hr>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="catalogo.html">Catálogo</a></li>
-        <li><a href="ofertas.html">Ofertas</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="carrito.html">Carrito 🛒</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <img src="img/LOGOPAGINA.jpg" alt="Logo de Tejidos Vivy" width="150">
+        <h1>Catálogo de Productos</h1>
+        <hr>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="ofertas.html">Ofertas</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main>
-    <section>
-      <h2>Categorías</h2>
-      <div class="filtros">
-        <button class="filtro-activo">Sweaters</button>
-        <button>Sacos</button>
-        <button>Chalecos</button>
-        <button>Poleras</button>
-        <button>Gorros</button>
-        <button>Tops</button>
-      </div>
+    <main>
+        <section>
+            <div class="categorias">
+                <button class="activo" data-categoria="todos">Todos</button>
+                <button data-categoria="sweater">Sweaters</button>
+                <button data-categoria="saco">Saco</button>
+                <button data-categoria="chaleco">Chalecos</button>
+                <button data-categoria="polera">Polera</button>
+                <button data-categoria="gorro">Gorros</button>
+                <button data-categoria="top">Top</button>
+            </div>
 
-      <div class="contenedor-productos">
-        <article class="producto">
-          <img src="img/Blanco Cut.jpg" alt="Sweater Blanco">
-          <h3>Sweater Wide Cut - Blanco</h3>
-          <p>$25.000</p>
-          <button class="boton-comprar" data-nombre="Sweater Wide Cut - Blanco" data-precio="25000">Comprar</button>
-        </article>
-        <article class="producto">
-          <img src="img/Negro Cut.jpg" alt="Sweater Negro">
-          <h3>Sweater Wide Cut - Negro</h3>
-          <p>$25.000</p>
-          <button class="boton-comprar" data-nombre="Sweater Wide Cut - Negro" data-precio="25000">Comprar</button>
-        </article>
-        <article class="producto">
-          <img src="img/ejemplo.jpg" alt="Ejemplo">
-          <h3>Ejemplo de producto</h3>
-          <p>$20.000</p>
-          <button class="boton-comprar" data-nombre="Ejemplo de producto" data-precio="20000">Comprar</button>
-        </article>
-      </div>
-    </section>
-  </main>
+            <div class="contenedor-productos">
+                <article class="producto" data-categoria="sweater">
+                    <img src="img/ejemplo_sweater.jpg" alt="Sweater ejemplo">
+                    <h3>Sweater lana artesanal</h3>
+                    <p>Talle: M - L - XL</p>
+                    <p>Precio: $25.000</p>
+                    <a href="#" class="boton-comprar">Comprar</a>
+                </article>
 
-  <footer>
-    <p>&copy; 2025 Tejidos Vivy</p>
-  </footer>
+                <article class="producto" data-categoria="saco">
+                    <img src="img/ejemplo_saco.jpg" alt="Saco ejemplo">
+                    <h3>Saco largo de abrigo</h3>
+                    <p>Talle: M - L</p>
+                    <p>Precio: $30.000</p>
+                    <a href="#" class="boton-comprar">Comprar</a>
+                </article>
 
-  <script src="js/script.js"></script>
+                <article class="producto" data-categoria="chaleco">
+                    <img src="img/ejemplo_chaleco.jpg" alt="Chaleco ejemplo">
+                    <h3>Chaleco tejido beige</h3>
+                    <p>Talle: S - M</p>
+                    <p>Precio: $20.000</p>
+                    <a href="#" class="boton-comprar">Comprar</a>
+                </article>
+
+                <article class="producto" data-categoria="polera">
+                    <img src="img/ejemplo_polera.jpg" alt="Polera ejemplo">
+                    <h3>Polera cuello alto</h3>
+                    <p>Talle: M - L</p>
+                    <p>Precio: $27.000</p>
+                    <a href="#" class="boton-comprar">Comprar</a>
+                </article>
+
+                <article class="producto" data-categoria="gorro">
+                    <img src="img/ejemplo_gorro.jpg" alt="Gorro ejemplo">
+                    <h3>Gorro tejido a mano</h3>
+                    <p>Color: Rojo</p>
+                    <p>Precio: $8.000</p>
+                    <a href="#" class="boton-comprar">Comprar</a>
+                </article>
+
+                <article class="producto" data-categoria="top">
+                    <img src="img/ejemplo_top.jpg" alt="Top ejemplo">
+                    <h3>Top tejido verano</h3>
+                    <p>Talle: S - M</p>
+                    <p>Precio: $12.000</p>
+                    <a href="#" class="boton-comprar">Comprar</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Tejidos Vivy</p>
+    </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
