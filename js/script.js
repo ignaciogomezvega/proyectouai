@@ -1,5 +1,4 @@
-// ==== CARRITO ====
-
+// -------------------- CARRITO --------------------
 function obtenerCarrito() {
     return JSON.parse(localStorage.getItem('carrito')) || [];
 }
@@ -12,7 +11,7 @@ function agregarProducto(nombre, precio) {
     const carrito = obtenerCarrito();
     carrito.push({ nombre, precio });
     guardarCarrito(carrito);
-    alert("✅ SE AGREGÓ EL PRODUCTO A LA LISTA DE COMPRA.\nDiríjase a CONTACTO para terminar con el pedido.");
+    alert("SE AGREGO PRODUCTO A LA LISTA DE COMPRA. Diríjase a CONTACTO para terminar con el pedido.");
 }
 
 function eliminarProducto(indice) {
@@ -37,8 +36,7 @@ function mostrarCarrito() {
     const ul = document.createElement('ul');
     carrito.forEach((p, i) => {
         const li = document.createElement('li');
-        li.innerHTML = `${p.nombre} - $${p.precio.toLocaleString()} 
-            <button onclick="eliminarProducto(${i})">❌</button>`;
+        li.innerHTML = `${p.nombre} - $${p.precio.toLocaleString()} <button onclick="eliminarProducto(${i})">❌</button>`;
         ul.appendChild(li);
     });
     contenedor.appendChild(ul);
@@ -49,48 +47,24 @@ function mostrarCarrito() {
     contenedor.appendChild(totalP);
 }
 
-// ==== FILTRO DE PRODUCTOS ====
-
-function filtrarProductos() {
-    const input = document.getElementById('filtro-productos');
-    if (!input) return;
-    const filtro = input.value.toLowerCase();
-
-    const productos = document.querySelectorAll('.producto');
-    productos.forEach(producto => {
-        const nombre = producto.querySelector('h3').textContent.toLowerCase();
-        producto.style.display = nombre.includes(filtro) ? 'block' : 'none';
-    });
-}
-
-// ==== EVENTOS ====
-
+// -------------------- INICIALIZACIÓN --------------------
 document.addEventListener('DOMContentLoaded', () => {
-
-    // Mostrar carrito si existe la sección
-    if (document.getElementById('lista-carrito')) {
-        mostrarCarrito();
-    }
-
-    // Delegar evento de "comprar"
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('boton-comprar')) {
+    const botonesComprar = document.querySelectorAll('.boton-comprar');
+    botonesComprar.forEach(boton => {
+        boton.addEventListener('click', (e) => {
             e.preventDefault();
             const producto = e.target.closest('.producto');
             const nombre = producto.querySelector('h3').textContent;
             const precioTexto = producto.querySelector('p:nth-of-type(2)').textContent;
             const precio = parseFloat(precioTexto.replace(/[^0-9]/g, ''));
             agregarProducto(nombre, precio);
-        }
+        });
     });
 
-    // Evento para el filtro
-    const filtroInput = document.getElementById('filtro-productos');
-    if (filtroInput) {
-        filtroInput.addEventListener('input', filtrarProductos);
+    if (document.getElementById('lista-carrito')) {
+        mostrarCarrito();
     }
 
-    // Evento de formulario (CONTACTO)
     const form = document.getElementById('form-contacto');
     if (form) {
         form.addEventListener('submit', (e) => {
@@ -100,18 +74,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const carrito = obtenerCarrito();
 
             if (carrito.length === 0) {
-                alert("❌ No has agregado productos a tu lista de compra.");
+                alert("No has agregado productos a tu lista de compra.");
                 return;
             }
 
             const listaProductos = carrito.map(p => `- ${p.nombre} ($${p.precio.toLocaleString()})`).join('\n');
             const total = carrito.reduce((acc, p) => acc + p.precio, 0);
 
-            alert(`¡Gracias ${nombre.value}! Tu mensaje fue enviado correctamente.\n\n🛒 Productos seleccionados:\n${listaProductos}\n\n💰 COSTO TOTAL: $${total.toLocaleString()}`);
+            alert(`¡Gracias ${nombre.value}! Tu mensaje fue enviado correctamente.\n\nProductos seleccionados:\n${listaProductos}\n\nCOSTO TOTAL: $${total.toLocaleString()}`);
 
             form.reset();
             localStorage.removeItem('carrito');
             mostrarCarrito();
+        });
+    }
+
+    // -------------------- FILTRO DE CATEGORÍAS --------------------
+    const botonesFiltro = document.querySelectorAll('.categorias button');
+    const productos = document.querySelectorAll('.producto');
+
+    if (botonesFiltro.length > 0) {
+        botonesFiltro.forEach(boton => {
+            boton.addEventListener('click', () => {
+                // Quitar clase activa de todos
+                botonesFiltro.forEach(b => b.classList.remove('activo'));
+                boton.classList.add('activo');
+
+                const categoria = boton.getAttribute('data-categoria');
+
+                productos.forEach(producto => {
+                    const categoriaProducto = producto.getAttribute('data-categoria');
+                    if (categoria === 'todos' || categoria === categoriaProducto) {
+                        producto.style.display = 'block';
+                    } else {
+                        producto.style.display = 'none';
+                    }
+                });
+            });
         });
     }
 });
