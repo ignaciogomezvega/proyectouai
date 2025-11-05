@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tejidos Vivy - Ofertas</title>
+  <title>Tejidos Vivy - Carrito</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
     <img src="img/LOGOPAGINA.jpg" alt="Logo de Tejidos Vivy" width="150">
-    <h1>Ofertas Especiales</h1>
+    <h1>Carrito de Compras</h1>
     <hr>
     <nav>
       <ul>
@@ -24,15 +24,28 @@
 
   <main>
     <section>
-      <h2>Productos en Oferta</h2>
-      <div class="contenedor-productos">
-        <article class="producto">
-          <img src="img/ejemplo.jpg" alt="Producto 1">
-          <h3>Sweater Otoñal</h3>
-          <p><del>$25.000</del> <strong>$20.000</strong></p>
-          <button class="boton-comprar" data-nombre="Sweater Otoñal" data-precio="20000">Comprar</button>
-        </article>
-      </div>
+      <h2>Tu Carrito</h2>
+      <div id="lista-carrito"></div>
+      <h3 id="total"></h3>
+    </section>
+
+    <section>
+      <h2>Finalizar Compra</h2>
+      <form id="form-compra">
+        <label>Nombre y Apellido:</label>
+        <input type="text" id="nombre" required><br><br>
+
+        <label>DNI:</label>
+        <input type="text" id="dni" required><br><br>
+
+        <label>Correo Electrónico:</label>
+        <input type="email" id="correo" required><br><br>
+
+        <label>Mensaje (opcional):</label>
+        <textarea id="mensaje" rows="4"></textarea><br><br>
+
+        <button type="submit">Finalizar Compra</button>
+      </form>
     </section>
   </main>
 

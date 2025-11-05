@@ -1,51 +1,75 @@
-// ----- FORMULARIO DE CONTACTO -----
-const form = document.getElementById("form-contacto");
-if (form) {
-    const nombre = document.getElementById("nombre");
-    const email = document.getElementById("email");
-    const mensaje = document.getElementById("mensaje");
+// === FUNCIONALIDAD DE CARRITO ===
 
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();
+// Agregar productos al carrito
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("boton-comprar")) {
+    const nombre = e.target.dataset.nombre;
+    const precio = parseFloat(e.target.dataset.precio);
+    agregarAlCarrito(nombre, precio);
+    alert(`${nombre} fue agregado al carrito 🛒`);
+  }
+});
 
-        if (nombre.value.trim() === "" || email.value.trim() === "" || mensaje.value.trim() === "") {
-            alert("Por favor, completá todos los campos.");
-            return;
-        }
-
-        const emailValido = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-        if (!emailValido.test(email.value)) {
-            alert("Por favor, ingresá un correo electrónico válido.");
-            email.focus();
-            return;
-        }
-
-        alert(`¡Gracias ${nombre.value}! Tu mensaje fue enviado correctamente.`);
-        form.reset();
-    });
+function agregarAlCarrito(nombre, precio) {
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  carrito.push({ nombre, precio });
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// ----- FILTRO DE CATEGORÍAS -----
-const botones = document.querySelectorAll(".categorias button");
-const productos = document.querySelectorAll(".producto");
+// === MOSTRAR CARRITO EN carrito.html ===
+if (document.getElementById("lista-carrito")) {
+  mostrarCarrito();
+}
 
-if (botones.length > 0) {
-    botones.forEach(boton => {
-        boton.addEventListener("click", () => {
-            const categoria = boton.dataset.categoria;
+function mostrarCarrito() {
+  const lista = document.getElementById("lista-carrito");
+  const totalEl = document.getElementById("total");
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-            // Sacar clase activo de todos y marcar el actual
-            botones.forEach(b => b.classList.remove("activo"));
-            boton.classList.add("activo");
+  lista.innerHTML = "";
 
-            // Mostrar/ocultar productos
-            productos.forEach(prod => {
-                if (categoria === "todos" || prod.dataset.categoria === categoria) {
-                    prod.style.display = "block";
-                } else {
-                    prod.style.display = "none";
-                }
-            });
-        });
-    });
+  if (carrito.length === 0) {
+    lista.innerHTML = "<p>Tu carrito está vacío.</p>";
+    totalEl.textContent = "";
+    return;
+  }
+
+  let total = 0;
+
+  carrito.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.classList.add("carrito-item");
+    div.innerHTML = `
+      <span>${item.nombre} - $${item.precio.toLocaleString()}</span>
+      <button onclick="eliminarDelCarrito(${index})">Eliminar</button>
+    `;
+    lista.appendChild(div);
+    total += item.precio;
+  });
+
+  totalEl.textContent = `Total: $${total.toLocaleString()}`;
+}
+
+function eliminarDelCarrito(index) {
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  carrito.splice(index, 1);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  mostrarCarrito();
+}
+
+// === FINALIZAR COMPRA ===
+const formCompra = document.getElementById("form-compra");
+if (formCompra) {
+  formCompra.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value;
+    const correo = document.getElementById("correo").value;
+
+    alert(`¡Gracias ${nombre}! Tu compra fue enviada y pronto se contactarán contigo vía mail para finalizar la compra y entrega.`);
+    
+    formCompra.reset();
+    localStorage.removeItem("carrito");
+    mostrarCarrito();
+  });
 }
