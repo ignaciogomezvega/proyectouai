@@ -1,51 +1,89 @@
-// ----- FORMULARIO DE CONTACTO -----
-const form = document.getElementById("form-contacto");
-if (form) {
-    const nombre = document.getElementById("nombre");
-    const email = document.getElementById("email");
-    const mensaje = document.getElementById("mensaje");
-
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        if (nombre.value.trim() === "" || email.value.trim() === "" || mensaje.value.trim() === "") {
-            alert("Por favor, completá todos los campos.");
-            return;
-        }
-
-        const emailValido = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-        if (!emailValido.test(email.value)) {
-            alert("Por favor, ingresá un correo electrónico válido.");
-            email.focus();
-            return;
-        }
-
-        alert(`¡Gracias ${nombre.value}! Tu mensaje fue enviado correctamente.`);
-        form.reset();
-    });
+function obtenerCarrito() {
+    return JSON.parse(localStorage.getItem('carrito')) || [];
 }
 
-// ----- FILTRO DE CATEGORÍAS -----
-const botones = document.querySelectorAll(".categorias button");
-const productos = document.querySelectorAll(".producto");
+function guardarCarrito(carrito) {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
 
-if (botones.length > 0) {
+function agregarProducto(nombre, precio) {
+    const carrito = obtenerCarrito();
+    carrito.push({ nombre, precio });
+    guardarCarrito(carrito);
+    alert("SE AGREGO PRODUCTO A LA LISTA DE COMPRA. Diríjase a CONTACTO para terminar con el pedido.");
+}
+
+function eliminarProducto(indice) {
+    const carrito = obtenerCarrito();
+    carrito.splice(indice, 1);
+    guardarCarrito(carrito);
+    mostrarCarrito();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const botones = document.querySelectorAll('.boton-comprar');
     botones.forEach(boton => {
-        boton.addEventListener("click", () => {
-            const categoria = boton.dataset.categoria;
-
-            // Quitar clase activo de todos y marcar el actual
-            botones.forEach(b => b.classList.remove("activo"));
-            boton.classList.add("activo");
-
-            // Mostrar/ocultar productos
-            productos.forEach(prod => {
-                if (categoria === "todos" || prod.dataset.categoria === categoria) {
-                    prod.style.display = "block";
-                } else {
-                    prod.style.display = "none";
-                }
-            });
+        boton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const producto = e.target.closest('.producto');
+            const nombre = producto.querySelector('h3').textContent;
+            const precioTexto = producto.querySelector('p:nth-of-type(2)').textContent;
+            const precio = parseFloat(precioTexto.replace(/[^0-9]/g, ''));
+            agregarProducto(nombre, precio);
         });
     });
+
+    if (document.getElementById('lista-carrito')) {
+        mostrarCarrito();
+    }
+
+    const form = document.getElementById('form-contacto');
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre');
+            const carrito = obtenerCarrito();
+
+            if (carrito.length === 0) {
+                alert("No has agregado productos a tu lista de compra.");
+                return;
+            }
+
+            const listaProductos = carrito.map(p => `- ${p.nombre} ($${p.precio.toLocaleString()})`).join('\n');
+            const total = carrito.reduce((acc, p) => acc + p.precio, 0);
+
+            alert(`¡Gracias ${nombre.value}! Tu mensaje fue enviado correctamente.\n\nProductos seleccionados:\n${listaProductos}\n\nCOSTO TOTAL: $${total.toLocaleString()}`);
+
+            form.reset();
+            localStorage.removeItem('carrito');
+            mostrarCarrito();
+        });
+    }
+});
+
+function mostrarCarrito() {
+    const contenedor = document.getElementById('lista-carrito');
+    if (!contenedor) return;
+
+    const carrito = obtenerCarrito();
+    contenedor.innerHTML = '';
+
+    if (carrito.length === 0) {
+        contenedor.innerHTML = '<p>No hay productos en la lista.</p>';
+        return;
+    }
+
+    const ul = document.createElement('ul');
+    carrito.forEach((p, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${p.nombre} - $${p.precio.toLocaleString()} <button onclick="eliminarProducto(${i})">❌</button>`;
+        ul.appendChild(li);
+    });
+    contenedor.appendChild(ul);
+
+    const total = carrito.reduce((acc, p) => acc + p.precio, 0);
+    const totalP = document.createElement('p');
+    totalP.innerHTML = `<strong>Total: $${total.toLocaleString()}</strong>`;
+    contenedor.appendChild(totalP);
 }

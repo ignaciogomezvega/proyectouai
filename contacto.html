@@ -22,20 +22,27 @@
     </header>
 
     <main id="contactos">
-        <h2>Contactanos</h2>
-        <p>Si querés hacer un pedido o tenés una consulta, completá este formulario:</p>
-        <form id="form-contacto" action="#" method="post">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required><br><br>
+        <div>
+            <h2>Contactanos</h2>
+            <p>Si querés hacer un pedido o tenés una consulta, completá este formulario:</p>
+            <form id="form-contacto" action="#" method="post">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required><br><br>
 
-            <label for="email">Correo electrónico:</label>
-            <input type="text" id="email" name="email" required><br><br>
+                <label for="email">Correo electrónico:</label>
+                <input type="text" id="email" name="email" required><br><br>
 
-            <label for="mensaje">Mensaje:</label>
-            <textarea name="mensaje" id="mensaje" rows="5" required></textarea><br><br>
+                <label for="mensaje">Mensaje:</label>
+                <textarea name="mensaje" id="mensaje" rows="5" required></textarea><br><br>
 
-            <input type="submit" value="Enviar">
-        </form>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+
+        <!-- NUEVO: lista del carrito -->
+        <aside id="lista-carrito">
+            <!-- Aquí se mostrará la lista de productos seleccionados -->
+        </aside>
     </main>
 
     <footer>
