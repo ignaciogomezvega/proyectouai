@@ -1,4 +1,4 @@
-/* Reset básico */
+/* 🔹 Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -6,26 +6,31 @@
     font-family: Verdana, sans-serif;
 }
 
-/* Body general */
+/* 🔹 Estilos generales del sitio */
 body {
     background-color: #FFFFFF;
     color: #000000;
     line-height: 1.6;
 }
 
-/* Header */
+/* 🔹 Header */
 header {
     text-align: center;
     padding: 20px;
     background-color: #F5F5F5;
 }
 
-/* Navegación */
+header img {
+    border-radius: 10px;
+}
+
+/* 🔹 Navegación principal */
 nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
     background-color: #B57EDC;
+    flex-wrap: wrap;
 }
 
 nav ul li {
@@ -37,25 +42,38 @@ nav ul li a {
     text-decoration: none;
     font-weight: bold;
     padding: 10px 15px;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 nav ul li a:hover {
     background-color: #9A63C7;
     border-radius: 5px;
+    transform: scale(1.05);
 }
 
-/* Secciones */
+/* 🔹 Secciones principales */
 section {
-    padding: 30px 50px;
+    padding: 40px 60px;
+    text-align: center;
 }
 
-/* Catálogo */
-#catalogo {
+h2 {
+    color: #9A63C7;
+    margin-bottom: 20px;
+}
+
+/* 🔹 Catálogo, ofertas y más vendidos */
+#catalogo,
+#ofertas,
+#mas-vendidos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
+    justify-items: center;
 }
 
+/* 🔹 Tarjeta de producto */
 article.producto {
     border: 1px solid #ddd;
     padding: 15px;
@@ -63,6 +81,8 @@ article.producto {
     border-radius: 10px;
     background-color: #F5F5F5;
     transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    max-width: 250px;
 }
 
 article.producto:hover {
@@ -73,9 +93,19 @@ article.producto:hover {
 article.producto img {
     max-width: 100%;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-/* Botón Comprar */
+article.producto h3 {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+article.producto p {
+    margin-bottom: 8px;
+}
+
+/* 🔹 Botón Comprar */
 .boton-comprar {
     display: inline-block;
     margin-top: 10px;
@@ -85,21 +115,36 @@ article.producto img {
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 .boton-comprar:hover {
     background-color: #9A63C7;
 }
 
-/* Contacto */
+/* 🔹 Sección Contacto */
 #contactos form {
     max-width: 500px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
-/* 🔹 Pseudoclases de validación */
+#contactos label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#contactos input,
+#contactos textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* 🔹 Validación visual */
 #contactos input:invalid,
 #contactos textarea:invalid {
     border: 2px solid red;
@@ -110,10 +155,42 @@ article.producto img {
     border: 2px solid green;
 }
 
-/* Footer */
+/* 🔹 Botón Enviar */
+#contactos input[type="submit"] {
+    background-color: #B57EDC;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#contactos input[type="submit"]:hover {
+    background-color: #9A63C7;
+}
+
+/* 🔹 Footer */
 footer {
     text-align: center;
     padding: 15px;
     background-color: #F5F5F5;
     margin-top: 30px;
+    font-size: 0.9em;
+}
+
+/* 🔹 Responsivo */
+@media (max-width: 768px) {
+    section {
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
 }
