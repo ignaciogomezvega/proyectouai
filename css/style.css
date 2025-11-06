@@ -70,13 +70,15 @@ article.producto:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* 🔧 Ajuste para que las imágenes no se vean con tanto zoom */
+/* 🔧 Ajuste: imágenes completas sin zoom */
 article.producto img {
+    display: block;
     width: 100%;
-    height: 250px;
-    object-fit: contain;   /* antes: cover → ahora muestra la imagen completa */
+    max-height: 250px;     /* controla el alto máximo sin recortar */
+    object-fit: contain;   /* muestra toda la imagen sin hacer zoom */
+    object-position: center;
     border-radius: 10px;
-    background-color: #fff; /* evita bordes vacíos con color neutro */
+    background-color: #fff; /* relleno neutro si sobra espacio */
 }
 
 /* Botón Comprar */
