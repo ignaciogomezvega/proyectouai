@@ -82,25 +82,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // -------------------- BOTONES DE COMPRA --------------------
+// -------------------- BOTONES DE COMPRA --------------------
 function inicializarBotonesComprar() {
-    const botones = document.querySelectorAll('.boton-comprar');
+    const contenedor = document.querySelector('.contenedor-productos');
+    if (!contenedor) return;
 
-    botones.forEach(boton => {
-        // 🔧 Eliminar listeners previos reemplazando el botón por su clon
-        const nuevoBoton = boton.cloneNode(true);
-        boton.parentNode.replaceChild(nuevoBoton, boton);
+    // ⚡ Escuchamos un solo evento para todo el contenedor
+    contenedor.addEventListener('click', (e) => {
+        const boton = e.target.closest('.boton-comprar');
+        if (!boton) return; // si no se hace clic en un botón, no hace nada
 
-        // 🔹 Agregar el listener limpio
-        nuevoBoton.addEventListener('click', (e) => {
-            e.preventDefault();
-            const producto = e.target.closest('.producto');
-            const nombre = producto.querySelector('h3').textContent;
-            const precioTexto = producto.querySelector('p:nth-of-type(2)').textContent;
-            const precio = parseFloat(precioTexto.replace(/[^0-9]/g, ''));
-            agregarProducto(nombre, precio);
-        });
+        e.preventDefault();
+        const producto = boton.closest('.producto');
+        const nombre = producto.querySelector('h3').textContent;
+        const precioTexto = producto.querySelector('p:nth-of-type(2)').textContent;
+        const precio = parseFloat(precioTexto.replace(/[^0-9]/g, ''));
+        agregarProducto(nombre, precio);
     });
 }
+
 
 
 
@@ -129,8 +129,8 @@ function inicializarFiltroCategorias() {
                 }
             });
 
-            // ⚡ Reasignar botones de compra después del filtrado
-            inicializarBotonesComprar();
+            // ❌ ya no volvemos a llamar a inicializarBotonesComprar()
         });
     });
 }
+
