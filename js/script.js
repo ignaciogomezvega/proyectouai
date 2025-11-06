@@ -11,7 +11,7 @@ function agregarProducto(nombre, precio) {
     const carrito = obtenerCarrito();
     carrito.push({ nombre, precio });
     guardarCarrito(carrito);
-    alert("SE AGREGO PRODUCTO A LA LISTA DE COMPRA. \n Diríjase a CONTACTO para terminar con el pedido.");
+    alert("SE AGREGO PRODUCTO A LA LISTA DE COMPRA. \n Diríjase a CONTACTO para terminar con el pedido. \n\n¡Muchas gracias!");
 }
 
 function eliminarProducto(indice) {
@@ -87,7 +87,7 @@ function inicializarBotonesComprar() {
     const contenedor = document.querySelector('.contenedor-productos');
     if (!contenedor) return;
 
-    // ⚡ Escuchamos un solo evento para todo el contenedor
+    
     contenedor.addEventListener('click', (e) => {
         const boton = e.target.closest('.boton-comprar');
         if (!boton) return; // si no se hace clic en un botón, no hace nada
@@ -129,7 +129,7 @@ function inicializarFiltroCategorias() {
                 }
             });
 
-            // ❌ ya no volvemos a llamar a inicializarBotonesComprar()
+            
         });
     });
 }
