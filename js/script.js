@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// -------------------- BOTONES DE COMPRA --------------------
-// -------------------- BOTONES DE COMPRA --------------------
+
+
 function inicializarBotonesComprar() {
     const contenedor = document.querySelector('.contenedor-productos');
     if (!contenedor) return;
@@ -90,7 +90,7 @@ function inicializarBotonesComprar() {
     
     contenedor.addEventListener('click', (e) => {
         const boton = e.target.closest('.boton-comprar');
-        if (!boton) return; // si no se hace clic en un botón, no hace nada
+        if (!boton) return; 
 
         e.preventDefault();
         const producto = boton.closest('.producto');
@@ -104,7 +104,7 @@ function inicializarBotonesComprar() {
 
 
 
-// -------------------- FILTRO DE CATEGORÍAS --------------------
+
 function inicializarFiltroCategorias() {
     const botonesFiltro = document.querySelectorAll('.categorias button');
     const productos = document.querySelectorAll('.producto');
@@ -113,7 +113,7 @@ function inicializarFiltroCategorias() {
 
     botonesFiltro.forEach(boton => {
         boton.addEventListener('click', () => {
-            // Actualizar clases
+            
             botonesFiltro.forEach(b => b.classList.remove('activo'));
             boton.classList.add('activo');
 
@@ -121,7 +121,7 @@ function inicializarFiltroCategorias() {
 
             productos.forEach(producto => {
                 const categoriaProducto = producto.getAttribute('data-categoria');
-                // Mostrar u ocultar
+                
                 if (categoria === 'todos' || categoria === categoriaProducto) {
                     producto.style.display = 'block';
                 } else {

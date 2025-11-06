@@ -1,4 +1,4 @@
-/* Reset básico */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,21 +6,21 @@
     font-family: Verdana, sans-serif;
 }
 
-/* Body general */
+
 body {
     background-color: #FFFFFF;
     color: #000000;
     line-height: 1.6;
 }
 
-/* Header */
+
 header {
     text-align: center;
     padding: 20px;
     background-color: #F5F5F5;
 }
 
-/* Navegación */
+
 nav ul {
     list-style: none;
     display: flex;
@@ -44,12 +44,12 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
-/* Secciones */
+
 section {
     padding: 30px 50px;
 }
 
-/* Catálogo y productos */
+
 .contenedor-productos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -70,18 +70,18 @@ article.producto:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* 🔧 Ajuste: imágenes completas sin zoom */
+
 article.producto img {
     display: block;
     width: 100%;
-    max-height: 250px;     /* controla el alto máximo sin recortar */
-    object-fit: contain;   /* muestra toda la imagen sin hacer zoom */
+    max-height: 250px;   
+    object-fit: contain;   
     object-position: center;
     border-radius: 10px;
-    background-color: #fff; /* relleno neutro si sobra espacio */
+    background-color: #fff; 
 }
 
-/* Botón Comprar */
+
 .boton-comprar {
     display: inline-block;
     margin-top: 10px;
@@ -97,7 +97,7 @@ article.producto img {
     background-color: #9A63C7;
 }
 
-/* Menú de categorías (filtro) */
+
 .categorias {
     text-align: center;
     margin-bottom: 25px;
@@ -120,7 +120,7 @@ article.producto img {
     background-color: #9A63C7;
 }
 
-/* Contacto */
+
 #contactos form {
     max-width: 500px;
     margin: 0 auto;
@@ -128,7 +128,7 @@ article.producto img {
     flex-direction: column;
 }
 
-/* Validación */
+
 #contactos input:invalid,
 #contactos textarea:invalid {
     border: 2px solid red;
@@ -139,7 +139,7 @@ article.producto img {
     border: 2px solid green;
 }
 
-/* Footer */
+
 footer {
     text-align: center;
     padding: 15px;
