@@ -86,10 +86,11 @@ function inicializarBotonesComprar() {
     const botones = document.querySelectorAll('.boton-comprar');
 
     botones.forEach(boton => {
-        // Elimina listeners anteriores reemplazando el nodo
+        // 🔧 Eliminar listeners previos reemplazando el botón por su clon
         const nuevoBoton = boton.cloneNode(true);
         boton.parentNode.replaceChild(nuevoBoton, boton);
 
+        // 🔹 Agregar el listener limpio
         nuevoBoton.addEventListener('click', (e) => {
             e.preventDefault();
             const producto = e.target.closest('.producto');
@@ -100,6 +101,7 @@ function inicializarBotonesComprar() {
         });
     });
 }
+
 
 
 // -------------------- FILTRO DE CATEGORÍAS --------------------
