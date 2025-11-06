@@ -84,8 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // -------------------- BOTONES DE COMPRA --------------------
 function inicializarBotonesComprar() {
     const botones = document.querySelectorAll('.boton-comprar');
+
     botones.forEach(boton => {
-        boton.addEventListener('click', (e) => {
+        // Elimina listeners anteriores reemplazando el nodo
+        const nuevoBoton = boton.cloneNode(true);
+        boton.parentNode.replaceChild(nuevoBoton, boton);
+
+        nuevoBoton.addEventListener('click', (e) => {
             e.preventDefault();
             const producto = e.target.closest('.producto');
             const nombre = producto.querySelector('h3').textContent;
@@ -95,6 +100,7 @@ function inicializarBotonesComprar() {
         });
     });
 }
+
 
 // -------------------- FILTRO DE CATEGORÍAS --------------------
 function inicializarFiltroCategorias() {
