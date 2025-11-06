@@ -11,7 +11,7 @@ function agregarProducto(nombre, precio) {
     const carrito = obtenerCarrito();
     carrito.push({ nombre, precio });
     guardarCarrito(carrito);
-    alert("SE AGREGO PRODUCTO A LA LISTA DE COMPRA. Diríjase a CONTACTO para terminar con el pedido.");
+    alert("SE AGREGO PRODUCTO A LA LISTA DE COMPRA. \n Diríjase a CONTACTO para terminar con el pedido.");
 }
 
 function eliminarProducto(indice) {
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const listaProductos = carrito.map(p => `- ${p.nombre} ($${p.precio.toLocaleString()})`).join('\n');
             const total = carrito.reduce((acc, p) => acc + p.precio, 0);
 
-            alert(`¡Gracias ${nombre.value}! Tu mensaje fue enviado correctamente.\n\nProductos seleccionados:\n${listaProductos}\n\nCOSTO TOTAL: $${total.toLocaleString()}`);
+            alert(`¡Gracias ${nombre.value}! Tu mensaje fue enviado correctamente.\nTe contactaremos en breve\n\nProductos seleccionados:\n${listaProductos}\n\nCOSTO TOTAL: $${total.toLocaleString()}`);
 
             form.reset();
             localStorage.removeItem('carrito');

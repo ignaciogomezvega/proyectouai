@@ -122,6 +122,78 @@ nav ul li a:hover {
     background-color: #8e4aa5;
 }
 
+/* ====== CONTACTO ====== */
+#contactos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+#contactos div {
+    flex: 1 1 60%;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#contactos h2 {
+    color: #5a2d82;
+    margin-bottom: 10px;
+}
+
+#contactos p {
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+#form-contacto label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #5a2d82;
+}
+
+#form-contacto input[type="text"],
+#form-contacto textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+#form-contacto input[type="submit"] {
+    background-color: #b569d1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#form-contacto input[type="submit"]:hover {
+    background-color: #8e4aa5;
+}
+
+/* ====== LISTA CARRITO ====== */
+#lista-carrito {
+    flex: 1 1 35%;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-height: 500px;
+    overflow-y: auto;
+}
+
 /* ====== FOOTER ====== */
 footer {
     text-align: center;
@@ -130,4 +202,16 @@ footer {
     color: #666;
     margin-top: 40px;
     font-size: 0.9rem;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+    #contactos {
+        flex-direction: column;
+    }
+
+    #contactos div,
+    #lista-carrito {
+        flex: 1 1 100%;
+    }
 }
